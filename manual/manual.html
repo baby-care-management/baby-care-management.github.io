@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>イベント託児 運営管理システム 使い方マニュアル</title>
+<style>
+@font-face{font-family:"Noto Sans JP";src:url("fonts/noto-400.ttf") format("truetype");font-weight:100 599}
+@font-face{font-family:"Noto Sans JP";src:url("fonts/noto-700.ttf") format("truetype");font-weight:600 900}
+@font-face{font-family:"Inter";src:url("fonts/inter-400.ttf") format("truetype");font-weight:100 599}
+@font-face{font-family:"Inter";src:url("fonts/inter-700.ttf") format("truetype");font-weight:600 900}
+:root{
+  --ink:#0F1A2B; --ink2:#4A5568; --line:#D5DCE4; --line-strong:#8591A5;
+  --primary:#1C4E9E; --primary-soft:#E8EEF8; --deep:#0E2240; --bg2:#F3F5F8; --danger:#B42318; --danger-soft:#FDECEA;
+}
+@page{
+  size:A4; margin:18mm 16mm 20mm;
+  @bottom-left{content:"イベント託児 運営管理システム 使い方マニュアル";font:400 7.5pt "Noto Sans JP";color:#4A5568}
+  @bottom-right{content:counter(page) " / " counter(pages);font:500 7.5pt "Inter","Noto Sans JP";color:#4A5568}
+}
+@page :first{margin:0;@bottom-left{content:none}@bottom-right{content:none}}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font-family:"Noto Sans JP",sans-serif;font-size:9.6pt;line-height:1.8;color:var(--ink);letter-spacing:.02em}
+h1,h2,h3,h4{margin:0;font-weight:700;font-feature-settings:"palt";break-after:avoid}
+p{margin:0 0 .6em;orphans:2;widows:2}
+ul,ol{margin:0;padding:0}
+.num{font-family:"Inter","Noto Sans JP",sans-serif;font-variant-numeric:tabular-nums}
+
+/* 表紙 */
+.cover{height:297mm;position:relative;padding:34mm 24mm 24mm 30mm;break-after:page;page-break-after:always}
+.cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:9mm;background:var(--deep)}
+.cover .kind{font-size:11pt;font-weight:700;color:var(--primary);letter-spacing:.14em}
+.cover h1{font-size:30pt;line-height:1.35;margin:8mm 0 6mm}
+.cover .sub{font-size:12pt;color:var(--ink2);line-height:1.8}
+.cover .meta{position:absolute;left:30mm;right:24mm;bottom:52mm;border-top:1px solid var(--line-strong);padding-top:5mm;font-size:9.5pt}
+.cover .meta dl{margin:0;display:grid;grid-template-columns:26mm 1fr;gap:1.5mm 4mm}
+.cover .meta dt{color:var(--ink2)}
+.cover .meta dd{margin:0}
+.cover .note{position:absolute;left:30mm;right:24mm;bottom:24mm;font-size:8.6pt;color:var(--ink2);line-height:1.7}
+.cover .brand{position:absolute;left:30mm;top:16mm;font:700 9pt "Inter";letter-spacing:.08em;color:var(--deep)}
+
+/* 章 */
+.chapter{margin-top:11mm}
+.chapter.pb{break-before:page;page-break-before:always;margin-top:0}
+.chapter.first{margin-top:0}
+.chapter.keep{break-inside:avoid}
+.ch-label{break-after:avoid;display:flex;align-items:center;gap:3mm;font:600 8.5pt "Inter";letter-spacing:.16em;text-transform:uppercase;color:var(--primary)}
+.ch-label::before{content:"";width:8mm;height:.6mm;background:var(--primary)}
+.ch-label span{color:var(--ink2)}
+h2{font-size:17pt;line-height:1.5;margin:2mm 0 5mm}
+h3{font-size:12pt;line-height:1.5;margin:7mm 0 2.5mm;padding-bottom:1.2mm;border-bottom:.3mm solid var(--line)}
+h4{font-size:10pt;margin:4mm 0 1.5mm}
+.chapter>p.lead+.two,.chapter>p.lead+.phones{break-before:avoid}
+.lead{color:var(--ink2);margin-bottom:4mm;break-after:avoid}
+
+/* 表 */
+table{width:100%;border-collapse:collapse;font-size:8.6pt;line-height:1.6;margin:2mm 0 3.5mm;break-inside:auto}
+th,td{border:.3mm solid var(--line);padding:1.3mm 2.4mm;text-align:left;vertical-align:top}
+th{background:var(--bg2);font-weight:700;color:var(--ink);white-space:nowrap}
+tr{break-inside:avoid}
+td.k{font-weight:700;white-space:nowrap}
+.t-fit th{white-space:normal}
+
+/* 手順 */
+ol.steps{list-style:none;counter-reset:s;margin:2mm 0 3mm}
+ol.steps>li{counter-increment:s;position:relative;padding:0 0 2.2mm 9mm;break-inside:avoid}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:.6mm;width:6mm;height:6mm;border-radius:1mm;background:var(--primary);color:#fff;font:700 8.5pt/6mm "Inter";text-align:center}
+ol.steps>li>b:first-child{display:block}
+ul.dots{list-style:none;margin:1mm 0 3mm}
+ul.dots>li{position:relative;padding-left:4.5mm;margin-bottom:1mm}
+ul.dots>li::before{content:"";position:absolute;left:1mm;top:2.6mm;width:1.4mm;height:1.4mm;border-radius:50%;background:var(--primary)}
+/* 画面写真の番号と同じ丸 */
+.cn{display:inline-block;width:4.6mm;height:4.6mm;border-radius:50%;background:var(--ink);color:#fff;font:700 7.6pt/4.6mm "Inter";text-align:center;vertical-align:.2mm;margin:0 .6mm}
+
+/* 図 */
+figure{width:88%;margin:3mm auto 4mm;break-inside:avoid}
+figure img{display:block;width:100%;height:auto;border:.3mm solid var(--line-strong)}
+figcaption{font-size:8.4pt;color:var(--ink2);margin-top:1.2mm}
+.phones{display:block;text-align:center;margin:3mm 0 4mm}
+.phones figure{display:inline-block;vertical-align:top;width:50mm;margin:0 3mm;text-align:left}
+.phones figure img{border-radius:2mm}
+
+/* 囲み */
+.box{margin:3mm 0 4mm;padding:2.6mm 4mm;background:var(--bg2);border-left:1mm solid var(--primary);break-inside:avoid;font-size:9.2pt}
+.box b.t{display:block;margin-bottom:.6mm}
+.box.warn{background:var(--danger-soft);border-left-color:var(--danger)}
+.box p:last-child{margin-bottom:0}
+.role{display:inline-block;min-width:15mm;text-align:center;padding:0 2mm;border:.3mm solid var(--line-strong);border-radius:1mm;font-size:8pt;font-weight:700;line-height:4.6mm;background:#fff;white-space:nowrap}
+.role.ai{border-style:dashed}
+.role.sys{background:var(--bg2)}
+.role.hum{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* 業務の流れ（図） */
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin:3mm 0 4mm;border:.3mm solid var(--line-strong)}
+.flow div{padding:2.4mm 2.4mm 2.6mm;border-right:.3mm solid var(--line);font-size:8.4pt;line-height:1.55;position:relative}
+.flow div:last-child{border-right:none}
+.flow b{display:block;font-size:9.4pt;margin-bottom:.8mm}
+.flow small{color:var(--ink2);font-size:7.8pt;display:block}
+.flow div:not(:last-child)::after{content:"";position:absolute;right:-1.6mm;top:3.4mm;width:2.8mm;height:2.8mm;border-top:.3mm solid var(--line-strong);border-right:.3mm solid var(--line-strong);transform:rotate(45deg);background:#fff;z-index:1}
+
+/* チェックリスト */
+.check li{list-style:none;position:relative;padding-left:6mm;margin-bottom:1mm}
+.check li::before{content:"";position:absolute;left:0;top:1.4mm;width:3.2mm;height:3.2mm;border:.4mm solid var(--ink2);border-radius:.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.two>div{break-inside:avoid}
+.toc{margin:2mm 0 0;font-size:10pt}
+.toc li{list-style:none;display:flex;gap:3mm;padding:1.3mm 0;border-bottom:.3mm solid var(--line)}
+.toc li b{font-family:"Inter";width:8mm;color:var(--primary)}
+.toc li span{flex:1}
+.toc li em{font-style:normal;color:var(--ink2);font-size:8.6pt}
+</style>
+</head>
+<body>
+
+<!-- 表紙 -->
+<section class="cover">
+  <div class="brand">AI Workflow &amp; Content</div>
+  <div class="kind">使い方マニュアル</div>
+  <h1>イベント託児<br>運営管理システム</h1>
+  <p class="sub">運営担当者向け<br>問い合わせから実績まで、1つの流れで進める手順</p>
+  <div class="meta"><dl>
+    <dt>対象の人</dt><dd>イベント託児・常設託児室の運営担当者</dd>
+    <dt>対象の版</dt><dd>システム 2026-09-24.2（ブラウザで動くデモ）</dd>
+    <dt>この書類の版</dt><dd>第2版　2026年9月24日</dd>
+  </dl></div>
+  <p class="note">本書は、ポートフォリオ用の架空の案件のデモを使って説明しています。画面に出てくる会社名・人名・データは、すべて架空です。</p>
+</section>
+
+<!-- はじめに・目次 -->
+<section class="chapter first">
+  <div class="ch-label">Contents</div>
+  <h2>この書類の使い方</h2>
+  <p class="lead">はじめて使う方が、上から順に読めば、問い合わせの受付から実績の記録まで進められるように書いています。すでに使っている方は、目次から必要な章だけ読んでください。</p>
+  <ol class="toc">
+    <li><b>01</b><span>このシステムでできること</span><em>役割分担と業務の流れ</em></li>
+    <li><b>02</b><span>画面の見かた</span><em>メニューと、ダッシュボード</em></li>
+    <li><b>03</b><span>業務の手順</span><em>問い合わせ → 案件 → 申込 → スタッフ・シフト → 下書き → タスク → 実績 → 請求</em></li>
+    <li><b>04</b><span>毎日の使いかた</span><em>チェックリスト</em></li>
+    <li><b>05</b><span>スマホで使うとき</span></li>
+    <li><b>06</b><span>困ったとき</span><em>よくある質問</em></li>
+    <li><b>07</b><span>導入にあたって</span><em>デモの範囲と、実際の業務で使うときの進め方</em></li>
+    <li><b>A</b><span>付録</span><em>ステータス一覧・用語</em></li>
+  </ol>
+
+  <h3>書き方の決まり</h3>
+  <table class="t-fit">
+    <tr><th>表記</th><th>意味</th></tr>
+    <tr><td><span class="cn">1</span><span class="cn">2</span></td><td>画面写真の中の番号です。本文の番号と同じものを見てください。</td></tr>
+    <tr><td><span class="role ai">AI</span></td><td>AIが行うこと。情報の整理と、文章の下書きだけです。</td></tr>
+    <tr><td><span class="role sys">システム</span></td><td>システムが自動で行うこと。記録・進み具合・タスクの管理です。</td></tr>
+    <tr><td><span class="role hum">人</span></td><td>担当者が行うこと。最終の確認・判断・例外への対応です。</td></tr>
+    <tr><td>「 」</td><td>画面に出ているボタンや項目の名前です。</td></tr>
+    <tr><td>〔 〕</td><td>AIの下書きの中で、人が書きかえる所の印です。</td></tr>
+  </table>
+  <div class="box"><b class="t">言葉の説明</b>
+    <p><b>ステータス</b>は、案件が今どの段階にあるかを表す言葉です（問い合わせ・見積・スタッフ手配など、全部で8つ）。ほかの言葉は、巻末の付録Bで説明しています。</p>
+  </div>
+</section>
+
+<!-- 1 できること -->
+<section class="chapter pb">
+  <div class="ch-label"><span>01</span>Overview</div>
+  <h2>このシステムでできること</h2>
+  <p class="lead">問い合わせ・案件・スタッフ・タスク・実績を1か所にまとめ、「いま何が終わっていて、次に何をするか」が見えるようにするための道具です。AIですべてを自動で進めるものではありません。</p>
+  <ul class="dots">
+    <li><b>情報を1か所で管理</b>　案件・お客さま・スタッフ・実績が、つながって見られます。</li>
+    <li><b>進み具合が見える</b>　案件は8つのステータスで進みます。今どこにいるかが、いつでも分かります。</li>
+    <li><b>抜け漏れを防ぐ</b>　期限切れのタスクや、足りないスタッフの数を、赤い印で知らせます。</li>
+    <li><b>決まった形の作業をAIが手伝う</b>　問い合わせの整理、返信文・見積のご案内文・申込書・依頼文・引き継ぎメモの下書きを作ります。</li>
+    <li><b>申込・シフト・請求までつなぐ</b>　Googleフォームの申込内容の確認、常設託児室のシフト表、交通費と請求に必要な情報のまとめまで、同じ画面で扱います。</li>
+  </ul>
+
+  <h3>AI・システム・人の役割分担</h3>
+  <table>
+    <tr><th style="width:24mm">役割</th><th>やること</th><th style="width:44mm">例</th></tr>
+    <tr><td><span class="role ai">AI</span></td><td>情報の整理・文章の下書き・要約</td><td>問い合わせ文から日時や人数を取り出す。返信文の下書きを作る</td></tr>
+    <tr><td><span class="role sys">システム</span></td><td>情報の管理・進み具合の管理・タスクの管理</td><td>案件を記録する。曜日と時間が合うスタッフを探す。期限切れを知らせる</td></tr>
+    <tr><td><span class="role hum">人</span></td><td>最終確認・判断・例外への対応</td><td>AIの結果を確かめる。スタッフに依頼して確定する。メールやチャットを送る</td></tr>
+  </table>
+  <div class="box warn"><b class="t">AIの結果は、必ず人が確かめてから使います</b>
+    <p>AIが作った結果や下書きは、「確かめました」の印をつけるまで、登録もコピーもできない作りです。また、このシステムは、メールやチャットを<b>送りません</b>。下書きをコピーして、担当者が自分で送ります。</p>
+  </div>
+
+  <h3>業務の流れ</h3>
+  <p>問い合わせから実績までを、6つの段階でつなぎます。ダッシュボードにも、同じ流れが出ています。</p>
+  <div class="flow">
+    <div><b>1 問い合わせ</b><small>問い合わせ・ヒアリング</small></div>
+    <div><b>2 案件化</b><small>見積・申込確認</small></div>
+    <div><b>3 スタッフ手配</b><small>スタッフ手配</small></div>
+    <div><b>4 タスク管理</b><small>すべての段階で使う</small></div>
+    <div><b>5 当日運営</b><small>最終確認</small></div>
+    <div><b>6 実績</b><small>実施済み・完了</small></div>
+  </div>
+  <table>
+    <tr><th style="width:24mm">段階</th><th style="width:34mm">主に使う画面</th><th>人がやること</th></tr>
+    <tr><td class="k">1 問い合わせ</td><td>AIアシスタント・案件</td><td>問い合わせの内容を確かめ、ヒアリングで足りない情報を聞く</td></tr>
+    <tr><td class="k">2 案件化</td><td>案件の詳細・案件（届いた申込フォームの確認）</td><td>見積を作って送る。フォームの回答を確かめて、案件に反映する</td></tr>
+    <tr><td class="k">3 スタッフ手配</td><td>案件の詳細・スタッフ・シフト表</td><td>スタッフ候補に依頼し、返事を受けて確定する。交通費を確かめる。常設託児室の枠を手配する</td></tr>
+    <tr><td class="k">4 タスク管理</td><td>タスク</td><td>期限と担当を決め、終わったら完了にする</td></tr>
+    <tr><td class="k">5 当日運営</td><td>案件の詳細</td><td>持ち物・名簿・集合時間を確かめる。当日の判断をする</td></tr>
+    <tr><td class="k">6 実績</td><td>実績</td><td>実際の人数・時間・申し送りを記録する。請求に必要な情報をまとめて、経理へ引き継ぐ</td></tr>
+  </table>
+</section>
+
+<!-- 2 画面の見かた -->
+<section class="chapter">
+  <div class="ch-label"><span>02</span>Screens</div>
+  <h2>画面の見かた</h2>
+  <p class="lead">最初に開くのは「ダッシュボード」です。今日やることが、ここに集まっています。</p>
+  <figure><img src="img/m1_dashboard.jpg" alt="ダッシュボードの画面。4つの数、業務の流れ、これからの案件、今日対応するタスク" width="1200" height="938"><figcaption>図2-1　ダッシュボード（パソコンの画面）</figcaption></figure>
+  <ol class="steps">
+    <li><b><span class="cn">1</span>4つの数</b>「対応中の案件」「今日が期限のタスク」「期限切れのタスク」「今週の案件」です。押すと、その条件で絞り込んだ一覧が開きます。期限切れがあると、赤い枠と印で出ます。</li>
+    <li><b><span class="cn">2</span>業務の流れ</b>6つの段階ごとに、案件の数と、AI・システム・人の役割を出します。段階の名前を押すと、その段階の案件の一覧が開きます。</li>
+    <li><b><span class="cn">3</span>今日対応するタスク</b>今日が期限のタスクと、期限を過ぎたタスクが、古い順に並びます。左の丸を押すと完了にできます。</li>
+    <li><b><span class="cn">4</span>これからの案件</b>今日以降に開催する案件が、近い順に出ます。スタッフが足りない案件には、赤い「不足」の印がつきます。</li>
+    <li><b><span class="cn">5</span>メニューの赤い数字</b>「タスク」の横の数字は、期限切れのタスクの件数です。</li>
+  </ol>
+
+  <h3>メニュー</h3>
+  <table>
+    <tr><th style="width:36mm">画面</th><th>できること</th></tr>
+    <tr><td class="k">ダッシュボード</td><td>今日の状況をひと目で確認する</td></tr>
+    <tr><td class="k">案件</td><td>案件の一覧・検索・登録。案件を開くと、進み具合・申込フォーム・スタッフ（交通費）・タスク・実績・AIをまとめて扱える。<b>届いたGoogleフォームの回答の確認</b>もここ</td></tr>
+    <tr><td class="k">タスク</td><td>すべての案件のタスクを、期限順に管理する</td></tr>
+    <tr><td class="k">スタッフ</td><td>スタッフの登録・編集（対応できる曜日と時間）と、<b>シフト表</b>（常設託児室3か所の枠と、案件・スタッフの予定）。上のタブで切り替える</td></tr>
+    <tr><td class="k">実績</td><td>実施した託児の人数・時間・申し送りを記録する。<b>請求準備</b>（交通費・人数をまとめて、経理へ引き継ぐ）もここ</td></tr>
+    <tr><td class="k">AIアシスタント</td><td>問い合わせの整理と、文章の下書き</td></tr>
+  </table>
+  <div class="box"><b class="t">デモのデータについて</b>
+    <p>このデモのデータは、開いているブラウザのタブの中だけに置かれます。画面を再読み込みしても残りますが、<b>タブを閉じると、最初のサンプルに戻ります</b>。途中でやり直したいときは、メニューの下にある「サンプルデータに戻す」を押します（確認が出ます）。</p>
+  </div>
+</section>
+
+<!-- 3 手順 -->
+<section class="chapter">
+  <div class="ch-label"><span>03</span>Procedures</div>
+  <h2>業務の手順</h2>
+  <p class="lead">問い合わせを受けてから、実績を記録するまでを、順に説明します。</p>
+
+  <h3>3.1　問い合わせが届いたとき（AIで整理して、案件にする）</h3>
+  <p>メールやフォームで届いた問い合わせの文章を貼り付けると、AIが「開催日・時間・会場・子どもの人数・年齢構成・確認事項」に分けます。人が確かめて直したあとで、案件として登録します。</p>
+  <figure><img src="img/m2_inquiry_input.jpg" alt="AIアシスタントの画面。問い合わせの文章を入れる欄と、例文のボタン、整理するボタン" width="1200" height="600"><figcaption>図3-1　問い合わせを入れる（例文を入れたところ）</figcaption></figure>
+  <ol class="steps">
+    <li><b>「AIアシスタント」を開く</b>ダッシュボードの「問い合わせを整理する」からも開けます。</li>
+    <li><b><span class="cn">1</span>文章を貼り付ける</b>届いた文章を、そのまま入れます（3,000文字まで）。試すときは、<span class="cn">2</span>の例文のボタンで、サンプルの文章が入ります。</li>
+    <li><b><span class="cn">3</span>「整理する」を押す</b>数秒で結果が出ます。</li>
+  </ol>
+  <figure><img src="img/m3_inquiry_result.jpg" alt="整理した結果の画面。取り出せた項目と、見つからなかった項目が赤く出て、下に案件の入力欄が並ぶ" width="1200" height="938"><figcaption>図3-2　整理した結果（情報が少ない問い合わせの例）</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 3">
+    <li><b><span class="cn">1</span>取り出せた項目を見る</b>取り出せた項目には✓が、文章の中に見つからなかった項目には赤い「見つかりません」が出ます。見つからなかったことは、「確認事項」に入ります（お客さまに聞くことのメモになります）。</li>
+    <li><b><span class="cn">2</span>入力欄を、原文と見比べて直す</b>案件名・開催日・時間・会場・人数などが、入力欄に入っています。まちがいや抜けを直し、足りない所は、お客さまに確かめてから入れます。案件名と開催日は必須です。</li>
+    <li><b>確かめた印をつけて、「案件に登録」を押す</b>「整理した内容を確かめ、足りない所を直しました」に印をつけるまで、登録のボタンは押せません。</li>
+  </ol>
+  <p>登録すると、次のことが自動で行われます。</p>
+  <ul class="dots">
+    <li>ステータスが「問い合わせ」の案件が作られ、案件の詳細が開きます。</li>
+    <li>問い合わせの原文が、案件の詳細に残ります。</li>
+    <li>翌日が期限の、「ヒアリング（確認事項の聞き取り）」のタスクが作られます。</li>
+  </ul>
+  <div class="box"><b class="t">AIの読みまちがいに注意</b>
+    <p>AIは、日付・時間・人数などの決まった書き方から取り出しています。<b>ほかの案件との日時のかさなりや、書かれていない事情は、見つけられません。</b>たとえば、日付が過ぎている・曜日が日付と合わない場合は、確認事項に出しますが、直すのは人です。必要スタッフ数は、人数と年齢を見て、人が決めます。</p>
+  </div>
+  <div class="box"><b class="t">AIを使わずに登録するとき</b>
+    <p>「案件」を開き、右上の「案件を登録」を押します。案件名と開催日が必須です。子ども人数と必要スタッフ数は、分からなければ空のまま（画面では「未入力」）にします。0人のときは、0と入れます。</p>
+  </div>
+
+  <h3>3.2　案件を進める（進み具合とステータス）</h3>
+  <p>案件を開くと、いちばん上に「進み具合」が出ます。案件は、問い合わせ → ヒアリング → 見積 → 申込確認 → スタッフ手配 → 最終確認 → 実施済み → 完了、の8つのステータスで進みます。</p>
+  <figure><img src="img/m4_case_top.jpg" alt="案件の詳細の画面。進み具合の8段階と、今やること、次へ進めるボタン。案件の情報と顧客情報" width="1200" height="806"><figcaption>図3-3　案件の詳細（上の部分）</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b><span class="cn">1</span>進み具合</b>済んだ段階は✓、今の段階は太い枠で出ます。</li>
+    <li><b><span class="cn">2</span>今やること</b>今のステータスで、人がやることの目安です。</li>
+    <li><b><span class="cn">3</span>「次のステータスに進める」・「1つ戻す」</b>1つずつ進み、1つずつ戻ります。戻しても、タスクや担当スタッフは残ります。</li>
+    <li><b><span class="cn">4</span>案件の情報</b>開催日・時間・会場・子ども人数・年齢構成・必要スタッフ・確認事項・託児メモです。直すときは、右上の「案件を編集」を押します。</li>
+    <li><b><span class="cn">5</span>顧客情報</b>お客さまの名前・担当者・電話・メールです。</li>
+  </ol>
+  <h4>進める前に出る「知らせ」</h4>
+  <p>次のステータスに進めるとき、まだ終わっていないことがあると、知らせが出ます。<b>知らせは止めるものではありません</b>。内容を見て、進めてよいかを担当者が決めます（「このまま進める」または「キャンセル」）。</p>
+  <table>
+    <tr><th style="width:44mm">進めるとき</th><th>出る知らせ</th></tr>
+    <tr><td>「スタッフ手配」に進める</td><td>必要スタッフ数がまだ入っていません</td></tr>
+    <tr><td>「スタッフ手配」から進める</td><td>確定したスタッフがあと○名足りません／返事待ち（依頼中）のスタッフが○名います</td></tr>
+    <tr><td>「実施済み」に進める</td><td>開催日より前です</td></tr>
+    <tr><td>「完了」に進める</td><td>実績がまだ登録されていません／終わっていないタスクが○件あります</td></tr>
+  </table>
+
+  <h4>定型タスクが作られます</h4>
+  <p>ステータスを進めると、そのステータス用の<b>定型タスク</b>が、期限と担当者（案件の担当者）つきで自動で作られます。同じ名前のタスクは、重ねて作られません。使わないタスクは、3.7で外せます。</p>
+  <table>
+    <tr><th style="width:36mm">進めたステータス</th><th>作られるタスク（期限の目安）</th></tr>
+    <tr><td class="k">見積</td><td>見積書を作る（1日後）／見積を送り、返事を確認する（4日後）</td></tr>
+    <tr><td class="k">申込確認</td><td>Googleフォームを案内する（当日）／申込フォームの回答を確認する・必要スタッフ数を決める（2日後）</td></tr>
+    <tr><td class="k">スタッフ手配</td><td>スタッフへ依頼を出す（当日）／返事を確認して確定する・交通費を確認して確定する（3日後）</td></tr>
+    <tr><td class="k">最終確認</td><td>備品の準備を事務所スタッフに連絡する（開催の3日前）／スタッフへ仕事内容・会場を連絡する（2日前）／当日の配置表・名簿を確認する（前日）</td></tr>
+    <tr><td class="k">実施済み</td><td>実績を登録する（当日）／請求に必要な情報をまとめる・お客さまへ実施報告を送る（1日後）／経理へ引き継ぐ（2日後）</td></tr>
+  </table>
+
+<h4>案件を探す</h4>
+  <p>「案件」の一覧では、検索（案件名・会場・顧客名）、ステータス、開催日（今日以降・今週・今月・来月・過去）で絞り込めます。一覧には、開催日・時間・会場・子どもの人数・必要スタッフ数・確定数・ステータス・担当者・次のタスクが並びます。完了していない案件が、開催日の近い順に上に出ます。</p>
+
+  <h3>3.3　申込フォーム（Googleフォーム）の回答を確認する</h3>
+  <p>お客さまがGoogleフォームで申し込むと、回答は<b>自動でシステムに届きます</b>（担当者が表をコピーする必要はありません）。届いた回答は「未確認」として並び、システムが<b>案件と自動で突き合わせ</b>て、ちがう所を見つけます。案件に反映するかどうかは、<b>人が確かめて決めます</b>。システムが案件を勝手に書き換えることはありません。自動で届くのは、フォームに付けた小さなスクリプト（Google Apps Script。導入のときに管理者が設定します）が、回答をシステムへ送るからです。</p>
+  <figure><img src="img/m13_import.jpg" alt="届いた回答を確認する画面。取り込む案件、案件の登録とフォームの回答の比べ、相違の行、確かめた印" width="1200" height="1100"><figcaption>図3-4　届いた回答の確認（人数がちがう例）</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b>「案件」の上の「未確認の回答」を押す</b>届いた回答の数（「未確認の回答 3件」）が出ています。案件の詳細の「申込フォーム」の欄でも、その案件の回答を見られます。</li>
+    <li><b>確かめる回答を選ぶ</b>回答が1件ずつ並びます。押すと、案件との突き合わせの結果が出ます。</li>
+    <li><b><span class="cn">1</span>取り込む案件を確かめる</b>開催日・顧客名・イベント名が近い案件が、自動で選ばれます。ちがうときは選び直します。一致する案件がなければ、「新しい案件として登録する」を選びます（ステータス「申込確認」で作られます）。</li>
+    <li><b><span class="cn">2</span>見つかったかを見る</b>「案件が見つかりました」か、「一致する案件がありません」が出ます。</li>
+    <li><b><span class="cn">3</span>項目ごとの結果を見る</b>「一致」「相違」（案件の登録とちがう）「案件にない」（案件が空で、回答にある）「未入力」（回答が空）です。相違の行は赤くなります。</li>
+    <li><b><span class="cn">4</span><span class="cn">6</span>案件に反映する項目を選ぶ</b>「案件にない」は、はじめから反映する印がついています。「<b>相違</b>」は、どちらが正しいかを、お客さまに確かめて決めるので、はじめは反映しません。反映するときは、印をつけます。</li>
+    <li><b><span class="cn">5</span>「内容を確かめました」に印をつけて、「確認済みにする」を押す</b>印をつけるまで、押せません。</li>
+  </ol>
+  <p>確認済みにすると、案件の詳細の「申込フォーム」の欄に回答が残り、その案件の「申込フォームの回答を確認する」タスクが完了になります。同じ回答は、重ねて届いても、重ねて保存されません。</p>
+  <div class="box"><b class="t">返信文にフォームの案内が入ります</b>
+    <p>ステータスが「見積」「申込確認」のときの返信文と、見積のご案内文には、Googleフォームの案内（URL と、入力してもらう項目）が入ります。URL は、「案件」の「Googleフォームの設定」で入れます（https で始まる URL だけ）。入れていないときは、〔GoogleフォームのURL〕と出ます。</p>
+  </div>
+  <div class="box"><b class="t">見本のデモでは</b>
+    <p>この手引きは、実際の業務で使う形（サーバー版）を前提に書いています。見本のデモには自動で届く仕組みがないため、スプレッドシートからコピーした表を貼り付けて取り込みます（「案件」の「申込フォームの回答を取り込む」）。届いたあとの突き合わせと確認の流れは、同じです。</p>
+  </div>
+
+  <h3>3.4　スタッフを手配する（候補を探して、依頼中→確定）</h3>
+  <p>案件の詳細の「担当スタッフ」で、必要な人数のスタッフをそろえます。「確定 2 / 必要 4 ▲不足2 依頼中 1」のように、確定した人数・必要な人数・足りない人数・返事待ちの人数が出ます。</p>
+  <figure><img src="img/m5_candidates.jpg" alt="担当スタッフの欄。確定と依頼中のスタッフの下に、スタッフ候補と、条件に合わない人数が出ている" width="1200" height="844"><figcaption>図3-5　スタッフ候補を探したところ</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b><span class="cn">1</span>「スタッフ候補を探す」を押す</b>案件に、開催日と、開始・終了の時刻が入っていることが必要です（入っていないと、探せない旨が出ます）。</li>
+    <li><b><span class="cn">3</span>候補を見る</b><span class="role sys">システム</span>が、次の4つに当てはまる人だけを出します。経験年数の長い人が上です。
+      <ul class="dots" style="margin-top:1mm">
+        <li>稼働できる状態である（休止中ではない）</li>
+        <li>開催日の曜日に対応できる</li>
+        <li>対応できる時間が、案件の時間をすべて含んでいる</li>
+        <li>同じ日の同じ時間に、ほかの案件の担当・常設託児室のシフトの枠に入っていない</li>
+      </ul></li>
+    <li><b><span class="cn">4</span>「依頼中で追加」を押す</b>スタッフが「依頼中」で担当に加わります。<b>システムはスタッフに連絡しません</b>。依頼の連絡は、電話やチャットで担当者が行います（依頼文は、3.6のAIで下書きできます）。</li>
+    <li><b><span class="cn">2</span>返事をもらったら「確定」にする</b>担当スタッフの右にある選択で、「依頼中」を「確定」に変えます。</li>
+    <li><b>外すとき</b>右の「×」を押します。確認が出ます。連絡をしていた場合は、取り消しの連絡を別に行ってください。</li>
+    <li><b><span class="cn">5</span>条件に合わない人を見る</b>「条件に合わない○名」を押すと、名前と理由（曜日が合わない・時間が合わない・休止中・同じ時間にほかの予定）が出ます。時間の相談などに使えます。</li>
+  </ol>
+  <h4>交通費を記録する</h4>
+  <p>担当スタッフごとに、交通費を記録します。請求に必要な情報になるので、確定したスタッフの分は、確定の印まで入れます。</p>
+  <figure><img src="img/m14_fare.jpg" alt="担当スタッフの欄。スタッフごとに、交通費の金額と状態、交通費を入れるボタンが出ている" width="1200" height="520"><figcaption>図3-6　担当スタッフの交通費</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b><span class="cn">1</span>金額と状態を見る</b>「交通費 ¥1,200（未確認）」のように出ます。未確認は、まだ確かめていない金額です。</li>
+    <li><b><span class="cn">2</span>「交通費を入れる」（「交通費を直す」）を押す</b>金額（円）・経路のメモ・「金額を確認して、確定にする」を入れます。かからないときは 0、分からないときは空のまま（未入力）にします。確定にするには、金額（0でもよい）が必要です。</li>
+    <li><b><span class="cn">3</span>確定したスタッフで、未入力のときは赤い印</b>「確定」なのに交通費が未入力のスタッフには、赤い印が出ます。請求準備（3.9）でも、足りないこととして知らせます。</li>
+  </ol>
+  <div class="box"><b class="t">スタッフの登録</b>
+    <p>「スタッフ」の画面で、名前・ステータス（稼働可／休止中）・対応できる曜日と時間・資格・経験年数・対応経験・備考を登録・編集します。スタッフの名前を押すと、その人が担当する案件が見られます。<b>候補は、ここに登録された曜日と時間で探します</b>。予定が変わったら、更新してください。</p>
+  </div>
+
+  <h3>3.5　シフト表（常設託児室の枠を手配する）</h3>
+  <p>「スタッフ」の上のタブから「シフト表」を開きます。常設託児室3か所の<b>枠</b>（1つの枠＝1人分の勤務の時間）と、イベント託児の案件、スタッフの予定を、1週間の表で見ます。「未手配」の枠を探して、スタッフを手配するのが主な使いかたです。</p>
+  <figure><img src="img/m11_shift.jpg" alt="シフト表の場所別の画面。1週間の表に、常設託児室3か所の枠と案件が並ぶ。赤い枠は未手配" width="1200" height="820"><figcaption>図3-7　シフト表（場所別）</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b><span class="cn">1</span>週を動かす</b>「前の週」「今週」「次の週」で動かします。この週の枠の数（確定・依頼中・未手配）が、表の上に出ます。</li>
+    <li><b><span class="cn">2</span>見かたを切り替える</b>「場所別」（行＝常設託児室3か所と案件）、「スタッフ別」（行＝スタッフ。対応できない曜日は「対応外」、その週に入る時間数つき）、「<b>タイムライン</b>」（1日を横向きの時間軸で見る。下で説明）、「月」（日ごとの枠の状況。日を押すと、その週の表が開く）です。</li>
+    <li><b><span class="cn">3</span>赤い枠（未手配）を探す</b>だれも入っていない枠は、赤い枠と「未手配」の文字で出ます。</li>
+    <li><b><span class="cn">4</span>依頼中・確定を見分ける</b>点線の枠は「依頼中」（返事待ち）、青い塗りは「確定」です。</li>
+    <li><b><span class="cn">5</span>案件の行を見る</b>同じ日のイベント託児の案件も出ます（押すと案件の詳細が開きます）。スタッフの重なりを避けるための目安になります。</li>
+  </ol>
+  <h4>タイムラインで、1日の時間を見る</h4>
+  <p>「タイムライン」は、<b>1日</b>を、8時〜20時ごろの横向きの時間軸で見る表示です。「だれが、何時から何時まで入るか」「何人が、何時に同時に入るか」が、横の長さで分かります。時間が広い予定があるときは、時間軸が自動で広がります。</p>
+  <figure><img src="img/m17_timeline.jpg" alt="タイムラインの画面。スタッフごとに、入る時間が横の棒で並び、薄い帯が稼働できる時間を表す。下に、場所ごとの枠" width="1200" height="1380"><figcaption>図3-9　タイムライン（1日の表示）</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b><span class="cn">1</span>日を動かす</b>「前の日」「今日」「次の日」で、日を動かします（今日を見ているときは、いまの時刻に赤い縦線が出ます）。</li>
+    <li><b><span class="cn">2</span>「タイムライン」を選ぶ</b>ほかの見かたに切り替えても、見ていた日・週が引き継がれます。</li>
+    <li><b><span class="cn">3</span>棒で、入る時間を見る</b>棒の左端が始まり、右端が終わりです。棒には、時間と、場所（案件のときは案件名）が出ます。棒を押すと、枠は手配の画面、案件は案件の詳細が開きます。</li>
+    <li><b><span class="cn">4</span>薄い帯で、稼働できる時間を見る</b>スタッフに登録された「対応できる時間」です。帯の外に棒があれば、登録とずれているので確かめてください。「休止中」「対応外」の人は、帯が出ません。</li>
+    <li><b><span class="cn">5</span>名前の下の時間を見る</b>その日の最初〜最後の時間と、合計の時間です。予定のある人が上に、始まりの早い順に並びます。</li>
+  </ol>
+  <p>下の「場所別」では、場所ごとに、枠が何人分どの時間に入るかを見ます。同じ時間に重なる枠は、上下に分けて出します。だれも入っていない枠は赤い「未手配」で出ます。</p>
+
+  <h4>枠にスタッフを手配する</h4>
+  <figure><img src="img/m12_slot.jpg" alt="枠の手配の画面。スタッフの選択、状態、入れない人の理由、枠を削除するボタン" width="1200" height="760"><figcaption>図3-8　枠の手配</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b>枠を押す</b>手配の画面が開きます（タイムラインの棒からも開けます）。</li>
+    <li><b><span class="cn">1</span>スタッフを選ぶ</b>選べるのは、その枠に入れる人だけです（稼働できる・曜日と時間が合う・同じ時間にほかの枠や案件がない）。経験年数の長い人が上に並び、「この週 ○時間」で、すでに入っている時間も分かります。</li>
+    <li><b><span class="cn">2</span>状態を選ぶ</b>連絡して返事待ちのときは「依頼中」、決まったら「確定」です。<b>システムは、スタッフに連絡しません</b>。連絡は、担当者が行います。</li>
+    <li><b><span class="cn">3</span>入れない人を見る</b>名前と理由（曜日・時間・休止中・ほかの予定）が出ます。時間の相談に使えます。</li>
+    <li><b><span class="cn">4</span>枠を削除するとき</b>確認が出ます。入っている人は外れ、元には戻せません。</li>
+  </ol>
+  <h4>枠を作る（定期シフトと、臨時の枠）</h4>
+  <ul class="dots">
+    <li><b>定期シフトの設定</b>　場所ごとに、曜日・時間・人数のパターン（例: 月〜金 10:00〜14:00・2名）を決めます。</li>
+    <li><b>この週の枠を作る</b>　表示している週に、定期シフトから足りない枠を作ります。すでにある枠は、重ねて作りません。週が変わるたびに、押してください。</li>
+    <li><b>枠を追加</b>　定期シフトにない臨時の枠を、1回だけ作ります（枠の数は 1〜10）。</li>
+  </ul>
+  <div class="box"><b class="t">スタッフの予定が変わったら</b>
+    <p>枠の候補は、「スタッフ」に登録された曜日・時間で探します。予定が変わったら、先にスタッフの登録内容を直してください。案件のスタッフ候補（3.4）も、シフトの枠との重なりを見て探します。</p>
+  </div>
+
+  <h3>3.6　文章の下書きを作る（返信文・見積のご案内文・申込書・依頼文・引き継ぎメモ）</h3>
+  <p>案件の情報から、5種類の文章の下書きを作れます。案件の詳細の右側「AIアシスタント」か、「AIアシスタント」の画面（案件を選ぶ）から使います。</p>
+  <table>
+    <tr><th style="width:36mm">種類</th><th>作られるもの</th></tr>
+    <tr><td class="k">顧客への返信文</td><td>案件のステータスに合わせた、丁寧な返信の文（問い合わせ・見積・申込・スタッフ手配・最終確認・実施後）。日時・会場・人数と、確認事項の質問が入ります。<b>見積・申込確認のときは、Googleフォームの案内が入ります</b></td></tr>
+    <tr><td class="k">見積のご案内文</td><td>見積書に添える文と、内訳のひな形。お見積り金額・内訳・交通費・有効期限は〔 〕で、<b>人が入れます</b>（システムは金額を作りません）。フォームの案内つき</td></tr>
+    <tr><td class="k">申込書</td><td>託児申込書のひな形。案件とお客さまの情報が入り、アレルギー・キャンセルの決まりは〔 〕で、お客さまに確かめて入れます。お名前・日付の記入欄つき</td></tr>
+    <tr><td class="k">スタッフへの依頼文</td><td>日時・集合・会場・お子さまの人数と年齢・募集人数（必要数 − 確定数）が入った依頼の文。返事の期限は、2日後（開催日の前日まで）。<b>お客さまの名前や連絡先は入りません</b></td></tr>
+    <tr><td class="k">引き継ぎメモ</td><td>案件の要点・担当スタッフ・残りのタスク（期限切れの印つき）・確認事項・託児メモ・同じお客さまの前回の申し送り。担当を交代するときに使います</td></tr>
+  </table>
+  <figure><img src="img/m6_draft.jpg" alt="AIアシスタントの欄。3種類のボタンと、作られた返信文の下書き、確かめた印、コピーのボタン" width="1200" height="938"><figcaption>図3-10　顧客への返信文の下書き</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b><span class="cn">1</span>下書きの種類を選ぶ</b>ボタンを押すと、数秒で下書きが出ます。返信文・スタッフへの依頼文は、上の「<b>LINE向けの短い文にする</b>」に印をつけてから押すと、あいさつを短く、行を分けた文になります（公式LINEに貼り付けるとき用）。</li>
+    <li><b><span class="cn">2</span><span class="cn">3</span>読んで、直す</b>枠の中は、そのまま書きかえられます。<span class="role ai">AI</span>の下書きなので、宛名・日時・人数を必ず確かめてください。</li>
+    <li><b><span class="cn">4</span>〔 〕を書きかえる</b>情報が足りない所は、〔 〕で残っています（例:〔集合の時刻と場所〕）。書きかえると、残りの数が減ります。</li>
+    <li><b><span class="cn">5</span>「内容を確かめました」に印をつける</b>印をつけるまで、コピーのボタンは押せません。</li>
+    <li><b><span class="cn">6</span>「コピーする」を押して、貼り付けて送る</b>メールやLINEなどに貼り付けて、担当者が自分で送ります。<b>システムは送信しません</b>。</li>
+  </ol>
+  <p>内容を変えたいとき（案件の情報を直したあとなど）は、「作り直す」を押します。</p>
+
+  <h3>3.7　タスクを管理する</h3>
+  <p>「タスク」の画面には、すべての案件のタスクが、期限の近い順に並びます（未完了が上）。期限を過ぎたものは、赤い文字と印で出ます。</p>
+  <figure><img src="img/m7_tasks.jpg" alt="タスクの一覧。絞り込み、完了の丸、ステータスの選択、タスクを登録するボタン" width="1200" height="713"><figcaption>図3-11　タスクの一覧</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b><span class="cn">1</span><span class="cn">2</span>絞り込む</b>ステータス（未完了のみ・すべて・未着手・進行中・完了）、担当者、期限（期限切れ・今日・今週）で絞り込めます。</li>
+    <li><b><span class="cn">3</span>終わったら、左の丸を押す</b>完了になります。もう一度押すと、未着手に戻ります。</li>
+    <li><b><span class="cn">4</span>ステータスを変える</b>「未着手」「進行中」「完了」を選びます。</li>
+    <li><b><span class="cn">5</span>「タスクを登録」</b>タスク名・期限・担当者・ステータス・関連する案件を入れます（案件の詳細の「タスクを追加」からも登録できます）。</li>
+  </ol>
+  <h4>定型タスクを使う・使わない</h4>
+  <p>「定型タスクの設定」を押すと、ステータスを進めたときに作られるタスクを、1つずつ「使う・使わない」にできます（初めは、すべて使う）。事務所のやり方に合わないものは、外してください。</p>
+  <figure><img src="img/m16_templates.jpg" alt="定型タスクの設定の画面。ステータスごとに、作られるタスクと期限の目安、使うかどうかの印" width="1200" height="760"><figcaption>図3-12　定型タスクの設定</figcaption></figure>
+
+  <h3>3.8　実施したあとに、実績を記録する</h3>
+  <p>託児が終わったら、実際の人数・時間・申し送りを「実績」に残します。予定との差が分かり、申し送りは次の引き継ぎメモにも使われます。</p>
+  <figure><img src="img/m8_record_dialog.jpg" alt="実績を登録する入力画面。案件、実施日と時間、実際の子ども人数とスタッフ人数、申し送り事項、完了にするかの選択" width="1200" height="844"><figcaption>図3-13　実績を登録する</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b>登録する案件を選ぶ</b>「実績」の画面の「実績の登録待ち」（開催日を過ぎたが、実績がまだない案件）から、「実績を登録」を押します。案件の詳細の「実績」の欄からも登録できます。</li>
+    <li><b><span class="cn">1</span><span class="cn">2</span>案件・実施日・時間</b>実施日には、未来の日は選べません。予定の時間が最初から入っています。</li>
+    <li><b><span class="cn">3</span>実際の人数</b>実際の子どもの人数と、スタッフの人数を入れます。<b>0人のときは 0 と入れてください</b>（空のままでは登録できません）。</li>
+    <li><b><span class="cn">4</span>申し送り事項</b>次に同じお客さまの託児をする人へ、よかったこと・困ったこと・次に気をつけることを書きます。</li>
+    <li><b><span class="cn">5</span>必要なら「案件を完了にする」に印</b>印をつけると、案件が「完了」になります。つけないときは、「実施済み」になります。</li>
+  </ol>
+  <p>登録すると、案件のステータスが進み、その案件の「実績を登録する」タスクも完了になります（「実施済み」に進んだときは、請求準備などの定型タスクも作られます）。実績を直すときは、案件の詳細の「実績を編集」を押します。</p>
+
+
+  <h3>3.9　請求に必要な情報をまとめて、経理へ引き継ぐ</h3>
+  <p>実施したあと、請求のために経理へ渡す情報を、案件ごとにまとめます。<b>請求額は計算しません</b>。実施日・時間・人数・スタッフ・交通費を、そのまま使える形にそろえます。「実績」の画面の「請求準備」の欄から使います。</p>
+  <figure><img src="img/m15_billing.jpg" alt="請求に必要な情報のまとめの画面。足りないこと、スタッフごとの表、交通費の合計、CSVで書き出すボタン、引き継ぎの状態" width="1200" height="860"><figcaption>図3-14　請求に必要な情報のまとめ</figcaption></figure>
+  <ol class="steps" style="counter-reset:s 0">
+    <li><b>「請求準備」の一覧から、「まとめを見る」を押す</b>一覧には、案件ごとの交通費の合計・状態（未着手・準備できた・経理へ引き継ぎ済み）・足りないことの件数が並びます。</li>
+    <li><b><span class="cn">1</span>足りないことを見る</b>実績がない・交通費が未入力や未確定・実績の人数と確定した人数のちがい、などが出ます。先に、直してください。</li>
+    <li><b><span class="cn">2</span><span class="cn">3</span>表と合計を見る</b>確定したスタッフごとの行と、交通費の<b>単純な合計</b>が出ます。</li>
+    <li><b><span class="cn">4</span>書き出す・コピーする</b>「CSVで書き出す」は、Excelで開ける形（文字化けしない形）で保存します。「表をコピー」は、Googleスプレッドシートにそのまま貼り付けられます。一覧の上のボタンで、引き継ぎ前の案件をまとめて出すこともできます。</li>
+    <li><b><span class="cn">5</span>状態を「経理へ引き継ぎ済み」にする</b>足りないことが残っているときは、「承知のうえで」の印が必要です。引き継ぐと、「経理へ引き継ぐ」のタスクも完了になります。</li>
+  </ol>
+  <div class="box"><b class="t">CSVの中の文字について</b>
+    <p>お客さまの名前などが「=」「+」「-」「@」で始まっていると、表計算ソフトが式として動かしてしまうことがあります。書き出すときは、そうした文字の先頭に「'」をつけて、式として動かない形にしています。</p>
+  </div>
+</section>
+
+<!-- 4 毎日の使いかた -->
+<section class="chapter">
+  <div class="ch-label"><span>04</span>Daily use</div>
+  <h2>毎日の使いかた</h2>
+  <p class="lead">1日のはじめと、場面ごとの確認のしかたの例です。事務所の運用に合わせて、調整してください。</p>
+  <div class="two">
+    <div>
+      <h4>毎朝</h4>
+      <ul class="check">
+        <li>ダッシュボードを開く</li>
+        <li>「期限切れのタスク」を先に片づける（担当・期限を確かめる）</li>
+        <li>「今日対応するタスク」を見て、1日の予定を決める</li>
+        <li>「これからの案件」で、赤い「不足」の案件がないか見る</li>
+      </ul>
+      <h4>問い合わせが届いたとき</h4>
+      <ul class="check">
+        <li>AIアシスタントで整理する</li>
+        <li>原文と見比べて、まちがい・抜けを直す</li>
+        <li>案件に登録する（ヒアリングのタスクが作られる）</li>
+        <li>返信文の下書きを作り、確かめて送る（LINEなら、短い文にする）</li>
+      </ul>
+      <h4>見積・申込のとき</h4>
+      <ul class="check">
+        <li>見積のご案内文を作り、金額を入れて、見積書と一緒に送る</li>
+        <li>ステータスを「見積」に進める（定型タスクが作られる）</li>
+        <li>届いたGoogleフォームの回答を、案件と突き合わせて確かめる</li>
+        <li>「申込確認」に進め、必要スタッフ数を決めて、案件に入れる</li>
+      </ul>
+    </div>
+    <div>
+      <h4>スタッフを手配するとき</h4>
+      <ul class="check">
+        <li>「スタッフ候補を探す」で候補を見る</li>
+        <li>依頼文の下書きを作り、確かめて送る</li>
+        <li>「依頼中で追加」で記録する</li>
+        <li>返事をもらったら「確定」にする</li>
+        <li>確定の数が必要数に届いたことを確かめる</li>
+        <li>交通費を入れて、確定にする</li>
+      </ul>
+      <h4>毎週（常設託児室）</h4>
+      <ul class="check">
+        <li>シフト表で、来週の枠を作る（この週の枠を作る）</li>
+        <li>赤い「未手配」の枠に、スタッフを手配する</li>
+        <li>依頼中のスタッフの返事を確かめて、確定にする</li>
+      </ul>
+      <h4>開催の前日から当日</h4>
+      <ul class="check">
+        <li>ステータスを「最終確認」に進める</li>
+        <li>持ち物・名簿・集合時間を確かめ、タスクを完了にする</li>
+        <li>担当を交代するときは、引き継ぎメモを作って渡す</li>
+      </ul>
+      <h4>実施したあと</h4>
+      <ul class="check">
+        <li>「実施済み」に進める</li>
+        <li>実績（人数・時間・申し送り）を登録する</li>
+        <li>請求準備で、足りないことがないか確かめる</li>
+        <li>CSVを書き出し（または表をコピーし）、経理へ引き継ぐ</li>
+        <li>お客さまへの報告のタスクを済ませる</li>
+        <li>終わっていないタスクがなければ「完了」に進める</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5 スマホ -->
+<section class="chapter keep">
+  <div class="ch-label"><span>05</span>Mobile</div>
+  <h2>スマホで使うとき</h2>
+  <p class="lead">外出先や現場では、スマホのブラウザで、今日のタスクと案件を確認できます。できる操作は、パソコンと同じです。</p>
+  <div class="phones">
+    <figure><img src="img/m9_phone_home.jpg" alt="スマホのダッシュボード。4つの数と業務の流れ。下にメニュー" width="780" height="1688"><figcaption>図5-1　ダッシュボード</figcaption></figure>
+    <figure><img src="img/m10_phone_case.jpg" alt="スマホの案件の詳細。進み具合は5/8と丸で表示" width="780" height="1688"><figcaption>図5-2　案件の詳細</figcaption></figure>
+  </div>
+  <table>
+    <tr><th style="width:38mm">パソコン</th><th>スマホ</th></tr>
+    <tr><td>左のメニュー</td><td>画面の下に、6つのボタン（ホーム・案件・タスク・スタッフ・実績・AI支援）。タスクには、期限切れの数が出ます</td></tr>
+    <tr><td>表（一覧）</td><td>1件ずつのカードに変わり、項目名がついて出ます</td></tr>
+    <tr><td>進み具合の8段階</td><td>「5 / 8　スタッフ手配」と、丸の並びで出ます</td></tr>
+    <tr><td>シフト表（場所別・スタッフ別）</td><td>日ごと（スタッフ別は、人ごと）の並びに変わります。「タイムライン」は、横にスクロールして見ます。「月」は、そのまま日の表です（未手配は「▲数」）</td></tr>
+  </table>
+</section>
+
+<!-- 6 困ったとき -->
+<section class="chapter">
+  <div class="ch-label"><span>06</span>Troubleshooting</div>
+  <h2>困ったとき</h2>
+  <table>
+    <tr><th style="width:56mm">こんなとき</th><th>こうします</th></tr>
+    <tr><td>画面を再読み込みしたら、データが消えた？</td><td>再読み込みでは消えません。<b>タブを閉じると、最初のサンプルに戻ります</b>（デモの決まりです）。</td></tr>
+    <tr><td>「スタッフ候補を探す」で、探せないと出る</td><td>開催日と、開始・終了の時刻が入っていません。「案件を編集」で入れてください。</td></tr>
+    <tr><td>スタッフ候補が0名</td><td>「条件に合わない」の理由を見てください。時間の相談をするか、スタッフの曜日・時間の登録が古くないか、確かめます。</td></tr>
+    <tr><td>ステータスを進めようとしたら、知らせが出た</td><td>内容を確かめ、先に済ませるか、問題なければ「このまま進める」を押します。止められることはありません。</td></tr>
+    <tr><td>AIの整理結果が、まちがっている・「見つかりません」が多い</td><td>入力欄で直します。AIは決まった書き方から取り出す仮の処理なので、書き方によっては読み取れません。原文と見比べて確かめてください。</td></tr>
+    <tr><td>「案件に登録」・「コピーする」のボタンが押せない</td><td>「確かめました」の印がついていません。内容を確かめて、印をつけてください。</td></tr>
+    <tr><td>コピーができなかった</td><td>下書きの文が選ばれた状態になります。キーボードでコピー（Macは ⌘＋C、Windowsは Ctrl＋C）してください。</td></tr>
+    <tr><td>実績を登録したい案件が出てこない</td><td>実績を登録できるのは、開催日を過ぎて「最終確認」以降になった案件か、「実施済み」の案件です。ステータスを確かめてください。</td></tr>
+    <tr><td>実施日に「未来の日は選べません」と出た</td><td>実施日は、今日以前の日にします。実施したあとに登録してください。</td></tr>
+    <tr><td>入力欄に、赤い文字が出た</td><td>赤い文字が、何がだめで、どう直すかを書いています。そのとおりに直してください。</td></tr>
+    <tr><td>案件・タスク・スタッフを削除したい</td><td>削除の操作はありません。スタッフの休止は「休止中」にします。担当スタッフを外す操作だけ、案件の詳細でできます。</td></tr>
+    <tr><td>Googleフォームに回答があったのに、「未確認の回答」に出ない</td><td>管理者に伝えてください。フォームの送信の設定（スクリプト）と、フォームに「開催日」「会社名（お名前）」にあたる質問があるかを確かめます。急ぐときは、回答のスプレッドシートを見て、案件に手で入れられます。</td></tr>
+    <tr><td>回答が「一致する案件がありません」と出る</td><td>開催日や顧客名が、案件と大きくちがっています。取り込む案件を選び直すか、「新しい案件として登録する」を選びます。</td></tr>
+    <tr><td>「相違」の項目は、どちらが正しい？</td><td>システムには決められません。お客さまに確かめてから、反映するかを選びます。反映しなければ、案件の登録はそのままです。</td></tr>
+    <tr><td>返信文に〔GoogleフォームのURL〕と出る</td><td>「案件」の「Googleフォームの設定」で、フォームの URL を入れてください（https で始まる URL だけ）。</td></tr>
+    <tr><td>シフト表の週に、枠がない</td><td>「この週の枠を作る」を押します。定期シフトが決まっていない場所は、先に「定期シフトの設定」で決めます。</td></tr>
+    <tr><td>枠に入れたい人が、選べない</td><td>手配の画面の「入れない人」で、理由を見ます。曜日・時間が合わない、休止中、同じ時間にほかの案件や枠に入っている、のどれかです。</td></tr>
+    <tr><td>交通費を「確定」にできない</td><td>金額が未入力です。金額を入れてください（かからないときは 0）。</td></tr>
+    <tr><td>請求のまとめで、「引き継ぎ済み」にできない</td><td>足りないことが残っています。先に直すか、確かめたうえで「承知のうえで」に印をつけます。</td></tr>
+    <tr><td>CSVを開くと、文字化けする</td><td>Excelで開ける形（UTF-8・BOMつき）で書き出しています。それでも化けるときは、「表をコピー」で、スプレッドシートに貼り付けてください。</td></tr>
+    <tr><td>定型タスクが、ほしくない</td><td>「タスク」の「定型タスクの設定」で、使わないものの印を外します。すでに作られたタスクは、そのまま残ります。</td></tr>
+    <tr><td>最初の状態にやり直したい</td><td>メニューの下の「サンプルデータに戻す」を押します。登録したものは、すべて消えます。</td></tr>
+  </table>
+</section>
+
+<!-- 7 導入 -->
+<section class="chapter">
+  <div class="ch-label"><span>07</span>Introduction</div>
+  <h2>導入にあたって</h2>
+  <p class="lead">このデモは、操作の流れを確かめるための見本です。実際の業務で使うには、データを保存する仕組みが必要です。</p>
+
+  <h3>7.1　デモと、実際の業務で使う形のちがい</h3>
+  <table>
+    <tr><th style="width:30mm">項目</th><th>今のデモ</th><th>実際の業務で使う形（設計済み）</th></tr>
+    <tr><td class="k">データの保存</td><td>ブラウザのタブの中だけ。タブを閉じると消える</td><td>サーバーのデータベースに保存。毎日の自動の控えつき</td></tr>
+    <tr><td class="k">使う人</td><td>1人</td><td>複数の担当者が、同じデータを見る。同時に直したときは、上書きせずに知らせる</td></tr>
+    <tr><td class="k">ログイン</td><td>なし</td><td>ログインと権限（管理者・運営担当）。ステータスを変えた記録が残る</td></tr>
+    <tr><td class="k">Googleフォーム</td><td>回答の表を貼り付けて取り込み、案件と突き合わせる</td><td>フォームに小さなスクリプト（Google Apps Script）をつけ、回答が届くと自動でサーバーに送る。人が確かめて反映するのは、デモと同じ</td></tr>
+    <tr><td class="k">AI</td><td>決まった書き方で動く仮の処理</td><td>本物のAI。キーはサーバーだけに置き、AIに送る情報は用途ごとに絞る</td></tr>
+    <tr><td class="k">メール・チャット</td><td>送らない（コピーして人が送る）</td><td>送らない（人が確かめて送る）</td></tr>
+  </table>
+  <div class="box"><b class="t">実際の形は、設計書までです</b>
+    <p>実際の業務で使う形（サーバー版）は、設計書までを作成しています。作るときは、要件・設計のレビューを行ってから開発に進みます。</p>
+  </div>
+
+  <h3>7.2　導入の進め方</h3>
+  <table>
+    <tr><th style="width:8mm">#</th><th style="width:34mm">進め方</th><th>やること</th></tr>
+    <tr><td class="num">1</td><td class="k">デモで流れを試す</td><td>この書類の3章を、サンプルのデータで一通りやってみる。運営担当者どうしで、画面の感想を出し合う</td></tr>
+    <tr><td class="num">2</td><td class="k">自分たちの運用と照らす</td><td>下の「決めておくこと」を話し合い、8つのステータスや項目が合っているかを確かめる。直したい所は、要望として整理する</td></tr>
+    <tr><td class="num">3</td><td class="k">実際の形を作る</td><td>ログイン・データベース・本物のAIをつけた形を開発し、テストする</td></tr>
+    <tr><td class="num">4</td><td class="k">試しに運用する</td><td>少人数・少ない案件（1〜2件）で使い、困った所を直す</td></tr>
+    <tr><td class="num">5</td><td class="k">本格的に使い始める</td><td>担当者全員で使い始める。運用のルールを、この書類に書き足す</td></tr>
+  </table>
+
+  <h3>7.3　決めておくこと・運用のルールの例</h3>
+  <ul class="dots">
+    <li><b>だれが案件を登録するか</b>　問い合わせを受けた人か、担当を決めた人か。</li>
+    <li><b>必要スタッフ数の決めかた</b>　子どもの人数と年齢から、何人にするかの基準（人が決めます）。</li>
+    <li><b>スタッフへの依頼の連絡方法と、返事の期限</b>　電話・チャットなど。システムは連絡しません。</li>
+    <li><b>Googleフォームの自動連携の設定</b>　フォームの持ち主の許可を得て、管理者がフォームにスクリプトを設定します。回答を送るときの合言葉は、管理者が管理し、ほかの人に教えません。届かなくなったときの連絡先も決めておきます。</li>
+    <li><b>Googleフォームの質問と、スプレッドシート</b>　いまのフォームの質問が、このシステムの項目（会社名・担当者・電話・メール・イベント名・開催日・時間・会場・人数・年齢・配慮）に合っているか。合わない質問は、直すか、項目を足します。</li>
+    <li><b>常設託児室の定期シフト</b>　場所ごとの曜日・時間・人数。週の枠を作る曜日と担当者。</li>
+    <li><b>交通費のきまり</b>　実費か定額か、上限があるか、だれが確定するか。</li>
+    <li><b>請求情報の引き継ぎ</b>　経理へ渡す形（CSV・スプレッドシート）と、渡す日（例: 開催の翌週まで）。</li>
+    <li><b>実績を入力する人と、期限</b>　たとえば、開催の翌日まで。</li>
+    <li><b>申し送りの書きかた</b>　次に同じお客さまを担当する人が読んで分かる書きかたにする。</li>
+    <li><b>AIの下書きの扱い</b>　必ず読んで、直してから使う。〔 〕を残したまま送らない。</li>
+    <li><b>入れる情報の範囲</b>　お子さまの名前や、保護者の連絡先は入れません。人数と年齢だけを入れます。このデモには、架空のデータだけを入れてください。</li>
+  </ul>
+</section>
+
+<!-- 付録 -->
+<section class="chapter pb">
+  <div class="ch-label"><span>A</span>Appendix</div>
+  <h2>付録</h2>
+  <h3>付録A　ステータス一覧</h3>
+  <table>
+    <tr><th style="width:8mm">#</th><th style="width:26mm">ステータス</th><th style="width:24mm">段階</th><th>今やること</th></tr>
+    <tr><td class="num">1</td><td class="k">問い合わせ</td><td>1 問い合わせ</td><td>問い合わせの内容を確かめ、ヒアリングの日時を決める</td></tr>
+    <tr><td class="num">2</td><td class="k">ヒアリング</td><td>1 問い合わせ</td><td>子どもの人数・年齢・部屋・アレルギーの有無などを聞き取る</td></tr>
+    <tr><td class="num">3</td><td class="k">見積</td><td>2 案件化</td><td>見積を作って送り、返事を待つ</td></tr>
+    <tr><td class="num">4</td><td class="k">申込確認</td><td>2 案件化</td><td>申込書を受け取り、内容を確かめる</td></tr>
+    <tr><td class="num">5</td><td class="k">スタッフ手配</td><td>3 スタッフ手配</td><td>必要な人数のスタッフに依頼し、確定させる</td></tr>
+    <tr><td class="num">6</td><td class="k">最終確認</td><td>5 当日運営</td><td>当日の持ち物・名簿・集合時間を確かめる</td></tr>
+    <tr><td class="num">7</td><td class="k">実施済み</td><td>6 実績</td><td>実績（人数・時間・申し送り）を登録する</td></tr>
+    <tr><td class="num">8</td><td class="k">完了</td><td>6 実績</td><td>この案件の対応は終わり</td></tr>
+  </table>
+  <h3>付録B　用語</h3>
+  <table>
+    <tr><th style="width:34mm">言葉</th><th>意味</th></tr>
+    <tr><td class="k">ステータス</td><td>案件が今どの段階にあるか。8つあります（付録A）</td></tr>
+    <tr><td class="k">稼働可／休止中</td><td>スタッフの状態。休止中の人は、スタッフ候補に出ません</td></tr>
+    <tr><td class="k">依頼中／確定</td><td>案件に入るスタッフの状態。依頼中は返事待ち、確定は入ることが決まった状態</td></tr>
+    <tr><td class="k">不足</td><td>必要スタッフ数から、確定した人数を引いた数。「依頼中」の人は、数に入りません</td></tr>
+    <tr><td class="k">未入力</td><td>まだ入れていない項目。0人・0名とは別です</td></tr>
+    <tr><td class="k">確認事項</td><td>お客さまに確かめること。AIが「見つかりません」とした項目も、ここに入ります</td></tr>
+    <tr><td class="k">申し送り</td><td>実施したあとに残す、次の担当者へのメモ</td></tr>
+    <tr><td class="k">〔 〕</td><td>AIの下書きの中の、人が書きかえる所の印</td></tr>
+    <tr><td class="k">枠（シフトの枠）</td><td>常設託児室の、1人分の勤務の時間。場所・日付・時間・入るスタッフ・状態を持つ</td></tr>
+    <tr><td class="k">定期シフト</td><td>場所ごとの、曜日・時間・人数のパターン。「この週の枠を作る」で、週の枠になる</td></tr>
+    <tr><td class="k">未手配</td><td>だれも入っていない枠。シフト表で赤く出る</td></tr>
+    <tr><td class="k">突き合わせ</td><td>届いた回答（未確認）と案件の登録内容を、項目ごとに比べること。「一致・相違・案件にない・未入力」で示す</td></tr>
+    <tr><td class="k">定型タスク</td><td>ステータスを進めたときに、自動で作られる決まったタスク</td></tr>
+    <tr><td class="k">経理への引き継ぎ</td><td>請求に必要な情報を、経理担当に渡すこと。請求額は計算しない</td></tr>
+    <tr><td class="k">モック</td><td>本物のAIにつながず、決まった書き方で動く仮の処理。このデモのAIは、モックです</td></tr>
+  </table>
+</section>
+
+</body>
+</html>
