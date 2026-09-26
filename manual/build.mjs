@@ -1,5 +1,5 @@
 // manual.html を PDF にする（Chrome を DevTools の仕組みで動かして印刷する）
-// 使い方: node build.mjs   → 使い方マニュアル.pdf ができる
+// 使い方: node build.mjs   → baby-care_manual.pdf ができる
 // 必要なもの: Google Chrome（macOS の標準の場所）と Node.js。書体は ../../_fonts/ の Noto Sans JP・Inter（OFL）
 import { spawn } from 'node:child_process';
 import { writeFileSync, rmSync, mkdtempSync } from 'node:fs';
@@ -8,7 +8,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const outPath = join(here, process.argv[2] || '使い方マニュアル.pdf');
+const outPath = join(here, process.argv[2] || 'baby-care_manual.pdf');
 const port = 9700 + Math.floor(Math.random() * 200);
 const prof = mkdtempSync(join(tmpdir(), 'manual-pdf-'));
 const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
